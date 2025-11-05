@@ -6,6 +6,7 @@ import { MulterModule } from '@nestjs/platform-express';
 import * as multer from 'multer';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Upload } from './upload.entity';
+import config from 'src/config/config';
 
 @Module({
   imports: [
@@ -24,9 +25,9 @@ import { Upload } from './upload.entity';
       provide: 'CLOUDINARY_CONFIG',
       useFactory: () => {
         cloudinary.config({
-          cloud_name: process.env.CLOUDINARY_CLOUD_NAME || 'dyigjybua',
-          api_key: process.env.CLOUDINARY_API_KEY || '444512872377633',
-          api_secret: process.env.CLOUDINARY_API_SECRET || 'GUJJFmo_J90HUb7YtA1PxGroqko',
+          cloud_name: config().cloudinary.cloudName,
+          api_key: config().cloudinary.apiKey,
+          api_secret: config().cloudinary.apiSecret,
         });
       },
     },

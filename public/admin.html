@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Products - Admin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://resource.trickle.so/vendor_lib/unpkg/lucide-static@0.516.0/font/lucide.css" rel="stylesheet">
+
+  <style type="text/tailwindcss">
+    @layer base {
+      :root {
+        --primary-color: #FF6B35;
+        --secondary-color: #004E89;
+      }
+      body {
+        @apply bg-gray-50 text-gray-900;
+      }
+    }
+  </style>
+</head>
+
+<body class="flex min-h-screen">
+  <!-- Sidebar -->
+  <aside class="w-64 bg-[var(--secondary-color)] text-white flex flex-col">
+    <div class="p-6 text-2xl font-bold border-b border-white/10">
+      Admin Panel
+    </div>
+    <nav class="flex-1 p-4 space-y-3">
+      <a href="#" class="flex items-center gap-2 p-2 rounded-lg hover:bg-white/10">
+        <i class="lucide lucide-box"></i> Products
+      </a>
+      <a href="#" class="flex items-center gap-2 p-2 rounded-lg hover:bg-white/10">
+        <i class="lucide lucide-users"></i> Users
+      </a>
+      <a href="#" class="flex items-center gap-2 p-2 rounded-lg hover:bg-white/10">
+        <i class="lucide lucide-shopping-cart"></i> Orders
+      </a>
+      <a href="#" class="flex items-center gap-2 p-2 rounded-lg hover:bg-white/10">
+        <i class="lucide lucide-settings"></i> Settings
+      </a>
+    </nav>
+    <div class="p-4 border-t border-white/10 text-sm text-gray-300">
+      © 2025 Admin Panel
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="flex-1 flex flex-col">
+    <!-- Top Bar -->
+    <header class="flex justify-between items-center px-6 py-4 bg-white border-b shadow-sm">
+      <h1 class="text-xl font-semibold text-[var(--secondary-color)]">Products</h1>
+      <div class="flex items-center gap-4">
+        <button class="bg-[var(--primary-color)] text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition">
+          + Add Product
+        </button>
+        <i class="lucide lucide-bell text-gray-600"></i>
+        <img src="https://i.pravatar.cc/40" alt="avatar" class="w-10 h-10 rounded-full border border-gray-200" />
+      </div>
+    </header>
+
+    <!-- Main Body -->
+    <main class="p-6 grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 overflow-y-auto">
+      <!-- Product Card -->
+      <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition p-4">
+        <img src="https://via.placeholder.com/300x200" alt="Product" class="w-full h-40 object-cover rounded-lg mb-3">
+        <h3 class="font-semibold text-lg">Wireless Headphones</h3>
+        <p class="text-sm text-gray-500 mb-2">Electronics</p>
+        <div class="flex justify-between items-center">
+          <span class="text-[var(--primary-color)] font-bold">$129.99</span>
+          <button class="text-sm px-3 py-1 rounded-lg bg-[var(--secondary-color)] text-white hover:bg-blue-800">
+            Edit
+          </button>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition p-4">
+        <img src="https://via.placeholder.com/300x200" alt="Product" class="w-full h-40 object-cover rounded-lg mb-3">
+        <h3 class="font-semibold text-lg">Smartwatch</h3>
+        <p class="text-sm text-gray-500 mb-2">Wearables</p>
+        <div class="flex justify-between items-center">
+          <span class="text-[var(--primary-color)] font-bold">$99.99</span>
+          <button class="text-sm px-3 py-1 rounded-lg bg-[var(--secondary-color)] text-white hover:bg-blue-800">
+            Edit
+          </button>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition p-4">
+        <img src="https://via.placeholder.com/300x200" alt="Product" class="w-full h-40 object-cover rounded-lg mb-3">
+        <h3 class="font-semibold text-lg">Office Chair</h3>
+        <p class="text-sm text-gray-500 mb-2">Furniture</p>
+        <div class="flex justify-between items-center">
+          <span class="text-[var(--primary-color)] font-bold">$189.99</span>
+          <button class="text-sm px-3 py-1 rounded-lg bg-[var(--secondary-color)] text-white hover:bg-blue-800">
+            Edit
+          </button>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition p-4">
+        <img src="https://via.placeholder.com/300x200" alt="Product" class="w-full h-40 object-cover rounded-lg mb-3">
+        <h3 class="font-semibold text-lg">Sneakers</h3>
+        <p class="text-sm text-gray-500 mb-2">Fashion</p>
+        <div class="flex justify-between items-center">
+          <span class="text-[var(--primary-color)] font-bold">$79.99</span>
+          <button class="text-sm px-3 py-1 rounded-lg bg-[var(--secondary-color)] text-white hover:bg-blue-800">
+            Edit
+          </button>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

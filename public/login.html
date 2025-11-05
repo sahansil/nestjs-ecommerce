@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f5f5f5;
+      margin: 0;
+    }
+    .form-box {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+      position: relative;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .input-box {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+    .input-box input {
+      width: 85%;
+      padding: 10px 40px 10px 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      outline: none;
+    }
+    .input-box label {
+      position: absolute;
+      top: -8px;
+      left: 10px;
+      background: #fff;
+      padding: 0 5px;
+      font-size: 0.9rem;
+      color: #666;
+    }
+    .toggle-password {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      cursor: pointer;
+      font-size: 1.2rem;
+    }
+    .btn {
+      width: 100%;
+      padding: 10px;
+      background: #FF6B35;
+      color: #fff;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      opacity: 0.9;
+    }
+    .switch-text {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+    .switch-text a {
+      color: #FF6B35;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <form class="form-box" id="loginForm">
+    <h2>Login</h2>
+    <div class="input-box">
+      <input type="email" name="email" required />
+      <label>Email</label>
+    </div>
+    <div class="input-box">
+      <input type="password" name="password" id="password" required />
+      <label>Password</label>
+      <span class="toggle-password" id="togglePassword">&#128065;</span>
+    </div>
+    <button type="submit" class="btn">Login</button>
+    <p class="switch-text">
+      Don’t have an account? <a href="signup.html">Sign Up</a>
+    </p>
+  </form>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const loginForm = document.getElementById("loginForm");
+
+      loginForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const email = loginForm.email.value.trim();
+        const password = loginForm.password.value.trim();
+
+        if (email === "" || password === "") {
+          alert("Please enter your email and password.");
+          return;
+        }
+
+        // Redirect to index.html after login
+        window.location.href = "index.html";
+      });
+
+      // Password toggle
+      const togglePassword = document.getElementById("togglePassword");
+      const passwordField = document.getElementById("password");
+
+      togglePassword.addEventListener("click", () => {
+        const type = passwordField.getAttribute("type") === "password" ? "text" : "password";
+        passwordField.setAttribute("type", type);
+        togglePassword.textContent = type === "password" ? "👁️" : "🙈";
+      });
+    });
+  </script>
+
+</body>
+</html>

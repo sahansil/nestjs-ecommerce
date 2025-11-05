@@ -1,30 +1,32 @@
-import { Injectable } from '@nestjs/common';
-import Stripe from 'stripe';
-import { ConfigService } from '@nestjs/config';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Payment } from './entities/payment.entity';
 import { CreatePaymentDto } from './dto/create-payment.dto';
+import { Order } from '../orders/entities/order.entity';
 
 @Injectable()
 export class PaymentsService {
-  private stripe: Stripe;
+  constructor(
+    @InjectRepository(Payment)
+    private readonly paymentRepo: Repository<Payment>,
+    @InjectRepository(Order)
+    private readonly orderRepo: Repository<Order>,
+  ) {}
 
-  constructor(private configService: ConfigService) {
-    this.stripe = new Stripe(this.configService.get<string>('STRIPE_SECRET_KEY'), {
-      apiVersion: '2024-06-20',
+  async createPayment(userId: string, dto: CreatePaymentDto) {
+    const order = await this.orderRepo.findOne({ where: { id: dto.orderId, user: { id: userId } } });
+    if (!order) throw new NotFoundException('Order not found');
+    const payment = this.paymentRepo.create({
+      order,
+      user: { id: userId },
+      amount: dto.amount,
+      status: 'pending',
     });
+    return this.paymentRepo.save(payment);
   }
 
-  async createPaymentIntent(dto: CreatePaymentDto) {
-    const paymentIntent = await this.stripe.paymentIntents.create({
-      amount: Math.round(dto.amount * 100), // convert to cents
-      currency: dto.currency,
-      payment_method_types: ['card'],
-    });
-    return { clientSecret: paymentIntent.client_secret };
-  }
-
-  async handleWebhook(payload: Buffer, sig: string) {
-    const endpointSecret = this.configService.get<string>('STRIPE_WEBHOOK_SECRET');
-    const event = this.stripe.webhooks.constructEvent(payload, sig, endpointSecret);
-    return event;
+  async getPaymentsForUser(userId: string) {
+    return this.paymentRepo.find({ where: { user: { id: userId } } });
   }
 }

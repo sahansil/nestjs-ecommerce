@@ -1,22 +1,20 @@
-import { Controller, Post, Body, Req, Headers, RawBodyRequest } from '@nestjs/common';
+import { Controller, Post, Get, Req, Body, UseGuards } from '@nestjs/common';
 import { PaymentsService } from './payments.service';
 import { CreatePaymentDto } from './dto/create-payment.dto';
-import { Request } from 'express';
+import { Auth } from 'src/users/decorators/auth.decoders';
 
 @Controller('payments')
+@UseGuards(Auth)
 export class PaymentsController {
   constructor(private readonly paymentsService: PaymentsService) {}
 
-  @Post('create-intent')
-  createPayment(@Body() dto: CreatePaymentDto) {
-    return this.paymentsService.createPaymentIntent(dto);
+  @Post()
+  async createPayment(@Req() req, @Body() dto: CreatePaymentDto) {
+    return this.paymentsService.createPayment(req.user.id, dto);
   }
 
-  @Post('webhook')
-  async handleWebhook(
-    @Req() req: RawBodyRequest<Request>,
-    @Headers('stripe-signature') signature: string,
-  ) {
-    return this.paymentsService.handleWebhook(req.rawBody, signature);
+  @Get()
+  async getPayments(@Req() req) {
+    return this.paymentsService.getPaymentsForUser(req.user.id);
   }
 }

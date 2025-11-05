@@ -12,15 +12,15 @@ import {
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { AuthGuard } from './auth/auth.guard';
+import { AuthGuard } from './auth/guards/auth.guard';
 import {
   LoggedInUser,
   type RequestWithUser,
 } from './decorators/user.decorator'
 import { CustomBody } from './decorators/custombody.decoders';
 import { UserRole } from './entities/user.entity';
-import { Roles } from './decorators/role.decorators';
-import { RolesGuard } from './auth/roles.guard';
+import { Roles } from './decorators/roles.decorator';
+import { RolesGuard } from './auth/guards/roles.guard';
 import { Auth } from './decorators/auth.decoders';
 
 @Controller('users')

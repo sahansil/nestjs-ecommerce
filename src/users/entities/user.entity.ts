@@ -15,7 +15,7 @@ export class User {
   @PrimaryGeneratedColumn('uuid') // UUID string ID
   id: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: false })
   name: string;
 
   @Column({ unique: true })
@@ -46,4 +46,6 @@ export class User {
 
   @UpdateDateColumn()
   updatedAt: Date;
+    cartItems: any;
+  orders: any;
 }

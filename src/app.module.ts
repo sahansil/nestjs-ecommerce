@@ -8,23 +8,38 @@ import { ProductsModule } from './products/products.module';
 import { CategoriesModule } from './Categories/categories.module';
 import { OrdersModule } from './orders/orders.module';
 import { UploadModule } from './upload/upload.module';
+import { Product } from './products/entities/product.entity';
+import { CartItem } from './cart/entities/cart.entity';
+import { ConfigModule } from '@nestjs/config';
+import config from './config/config';
 
 @Module({
-  imports: [TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'Sahansil@77',
-      database: 'ecommerce',
-      autoLoadEntities: true,
-      synchronize: true,
-    }),
-    UsersModule, ProductsModule, CategoriesModule ,OrdersModule, UploadModule
+  imports: [ConfigModule.forRoot({
+    isGlobal: true,
+    load: [config],
+  }), 
+  TypeOrmModule.forRoot({
+    //use variables from config
+    // @ts-expect-error dbType from env is string but TypeOrm expects a specific type
+    type: config().database.dbType,
+    host: config().database.host,
+    port: config().database.port,
+    username: config().database.username,
+    password: config().database.password,
+    database: config().database.database,
+    autoLoadEntities: true,
+    synchronize: true,
+    entities: [Product, CartItem],
+  }),
+    UsersModule,
+    ProductsModule,
+    CategoriesModule,
+    OrdersModule,
+    UploadModule
   ],
-  controllers: [AppController ],
+  controllers: [AppController],
   providers: [AppService],
-  
+
 })
-export class AppModule {}
+export class AppModule { }
 

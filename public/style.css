@@ -1,0 +1,118 @@
+/* General page styling */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #4a90e2, #9013fe);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+}
+
+/* Form box */
+.form-box {
+  background: #fff;
+  padding: 40px 30px;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+/* Title */
+.form-box h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Input box */
+.input-box {
+  position: relative;
+  margin: 25px 0;
+}
+
+.input-box input {
+  width: 100%;
+  padding: 10px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  outline: none;
+  font-size: 16px;
+  transition: 0.3s ease;
+}
+
+.input-box label {
+  position: absolute;
+  left: 0;
+  top: 10px;
+  color: #999;
+  font-size: 16px;
+  pointer-events: none;
+  transition: 0.3s ease;
+}
+
+.input-box input:focus,
+.input-box input:valid {
+  border-bottom-color: #4a90e2;
+}
+
+.input-box input:focus ~ label,
+.input-box input:valid ~ label {
+  top: -15px;
+  color: #4a90e2;
+  font-size: 13px;
+}
+
+/* Button */
+.btn {
+  width: 100%;
+  padding: 10px;
+  background: #4a90e2;
+  border: none;
+  border-radius: 25px;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.btn:hover {
+  background: #357ab8;
+}
+
+/* Switch text */
+.switch-text {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.switch-text a {
+  color: #4a90e2;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.switch-text a:hover {
+  text-decoration: underline;
+}
+
+/* password icon */
+.password-box {
+  position: relative;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}

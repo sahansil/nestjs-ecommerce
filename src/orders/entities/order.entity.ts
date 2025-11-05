@@ -1,51 +1,30 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  OneToMany,
-  CreateDateColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { User } from '../../users/entities/user.entity';
 import { OrderItem } from './order-item.entity';
-@Entity('orders')
+
+@Entity()
 export class Order {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column('uuid')
-  userId: string;
+  @ManyToOne(() => User, user => user.orders, { eager: true })
+  user: User;
+
+  @OneToMany(() => OrderItem, item => item.order, { cascade: true, eager: true })
+  items: OrderItem[];
 
   @Column('decimal', { precision: 10, scale: 2 })
   totalAmount: number;
 
-  @Column({
-    type: 'enum',
-    enum: ['pending', 'confirmed', 'shipped', 'delivered', 'cancelled'],
-    default: 'pending',
-  })
+  @Column({ type: 'varchar', default: 'pending' })
   status: string;
 
-  @Column('text')
-  shippingAddress: string;
-
-  @Column({
-    type: 'enum',
-    enum: ['credit_card', 'debit_card', 'paypal', 'cash_on_delivery'],
-  })
-  paymentMethod: string;
+  @Column({ type: 'timestamp', nullable: true })
+  deliveryDate: Date;
 
   @CreateDateColumn()
-  orderDate: Date;
-
-  @Column({ type: 'timestamp', nullable: true })
-  deliveryDate?: Date;
+  createdAt: Date;
 
   @UpdateDateColumn()
   updatedAt: Date;
-
-  // Relation with OrderItem
-  @OneToMany(() => OrderItem, (orderItem) => orderItem.order, {
-    cascade: true,
-  })
-  orderItems: OrderItem[];
 }

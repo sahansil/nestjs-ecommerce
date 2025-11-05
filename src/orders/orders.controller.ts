@@ -1,53 +1,43 @@
 import {
   Controller,
-  Get,
   Post,
-  Patch,
-  Delete,
+  Get,
   Param,
+  UseGuards,
+  Req,
+  Patch,
   Body,
-  Query,
 } from '@nestjs/common';
 import { OrdersService } from './orders.service';
-import { CreateOrderDto } from './dto/create-order.dto';
-import { UpdateOrderDto } from './dto/update-order.dto';
-import { Order } from './entities/order.entity';
+import { Auth } from 'src/users/decorators/auth.decoders';
+import { Roles } from 'src/users/decorators/roles.decorator';
+import { UpdateOrderStatusDto } from './dto/update-order-status.dto';
+import { RolesGuard } from 'src/users/auth/guards/roles.guard';
 
 @Controller('orders')
+@UseGuards(Auth)
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 
-  // GET /orders
+  @Post('checkout')
+  async createFromCart(@Req() req) {
+    return this.ordersService.createOrderFromCart(req.user.id);
+  }
+
   @Get()
-   getAllOrders() {
-    return this.ordersService.getAllOrders();
+  async getOrders(@Req() req) {
+    return this.ordersService.getOrdersForUser(req.user.id);
   }
 
-  // GET /orders/:id
   @Get(':id')
-  async getOneOrder(@Param('id') id: string) {
-    return this.ordersService.getOneOrder(id);
+  async getOrder(@Req() req, @Param('id') id: string) {
+    return this.ordersService.getOrder(id, req.user.id);
   }
 
-  // POST /orders
-  @Post()
-  async addOrder(@Body() createOrderDto: CreateOrderDto){
-    return this.ordersService.addOrder(createOrderDto);
-  }
-
-  // PATCH /orders/:id
-  @Patch(':id')
-  async updateOrder(
-    @Param('id') id: string,
-    @Body() updateOrderDto: UpdateOrderDto,
-  ): Promise<Order> {
-    return this.ordersService.updateOrder(id, updateOrderDto);
-  }
-
-  // DELETE /orders/:id
-  @Delete(':id')
-  async deleteOrder(@Param('id') id: string): Promise<{ message: string }> {
-    await this.ordersService.deleteOrder(id);
-    return { message: 'Order deleted successfully' };
+  @Patch(':id/status')
+  @Roles('admin')
+  @UseGuards(RolesGuard)
+  async updateStatus(@Param('id') id: string, @Body() dto: UpdateOrderStatusDto) {
+    return this.ordersService.updateStatus(id, dto.status);
   }
 }
