@@ -10,11 +10,11 @@ services:
     ports:
       - "3006:3000"
     environment:
-      - DATABASE_HOST=db
-      - DATABASE_PORT=5432
-      - DATABASE_USER=postgres
-      - DATABASE_PASSWORD=Sahansil@77
-      - DATABASE_NAME=ecommerce
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - DB_DATABASE=ecommerce
       - CLOUDINARY_CLOUD_NAME=dyigjybua
       - CLOUDINARY_API_KEY=444512872377633
       - CLOUDINARY_API_SECRET=GUJJFmo_J90HUb7YtA1PxGroqko
@@ -22,14 +22,14 @@ services:
   db:
     image: postgres:15
     environment:
-      - POSTGRES_USER= postgres
-      - POSTGRES_PASSWORD= Sahansil@77
-      - POSTGRES_DB= ecommerce
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=ecommerce
     ports:
       - "54322:5432"
     volumes:
-      - db_data:/var/lib/postgresql/data
+      - db_data_dev:/var/lib/postgresql/data
 
 volumes:
-  db_data:
+  db_data_dev:
     driver: local
