@@ -1,16 +1,16 @@
-version: '3.9'
+version: "3.9"
 
 services:
   app:
     build:
       context: .
-      dockerfile: ./Dockerfile
+      dockerfile: Dockerfile
     depends_on:
       - db
     ports:
       - "3006:3000"
     environment:
-     - DATABASE_HOST=db
+      - DATABASE_HOST=db
       - DATABASE_PORT=5432
       - DATABASE_USER=postgres
       - DATABASE_PASSWORD=Sahansil@77
@@ -22,9 +22,9 @@ services:
   db:
     image: postgres:15
     environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: ecommerce
+      - POSTGRES_USER= postgres
+      - POSTGRES_PASSWORD= Sahansil@77
+      - POSTGRES_DB= ecommerce
     ports:
       - "54322:5432"
     volumes:
