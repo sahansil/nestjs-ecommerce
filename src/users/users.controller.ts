@@ -22,11 +22,11 @@ import { UserRole } from './entities/user.entity';
 import { Roles } from './decorators/roles.decorator';
 import { RolesGuard } from './auth/guards/roles.guard';
 import { Auth } from './decorators/auth.decoders';
-import { ApiBearerAuth, ApiBody, ApiOperation } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiOperation, ApiProperty } from '@nestjs/swagger';
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(private readonly usersService: UsersService) { }
 
   // Get all users
   @ApiBearerAuth()
@@ -55,7 +55,7 @@ export class UsersController {
 
   // Create admin user (force role ADMIN) - public for testing only, protect this in production
   @Post('/admin/register')
-  @ApiOperation({ summary: 'Register a new admin user'})
+  @ApiOperation({ summary: 'Register a new admin user' })
   @ApiBody({ type: CreateUserDto })
   async createAdmin(@Body() createUserDto: CreateUserDto) {
     // Force role to ADMIN regardless of client-provided value
@@ -65,6 +65,16 @@ export class UsersController {
 
   // Login
   @Post('/login')
+  @ApiOperation({ summary: 'Login a user' })
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        email: { type: 'string', example: 'john.doe@example.com' },
+        password: { type: 'string', example: 'strongPassword123' },
+      },
+    }
+  })
   login(
     @CustomBody('email') email: string,
     @CustomBody('password') password: string,
