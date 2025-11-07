@@ -6,11 +6,11 @@ import { SwaggerModule , DocumentBuilder } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe());
-app.enableCors({
-    origin: 'http://127.0.0.1:5500',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    credentials: true,
-});
+// app.enableCors({
+//     origin: 'http://127.0.0.1:5500',
+//     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+//     credentials: true,
+// });
   const config = new DocumentBuilder()
     .setTitle('Ecommerce example')
     .setDescription('The cats API description')
