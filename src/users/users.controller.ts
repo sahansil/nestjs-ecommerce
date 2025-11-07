@@ -22,12 +22,14 @@ import { UserRole } from './entities/user.entity';
 import { Roles } from './decorators/roles.decorator';
 import { RolesGuard } from './auth/guards/roles.guard';
 import { Auth } from './decorators/auth.decoders';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   // Get all users
+  @ApiBearerAuth()
   @Get()
   @Auth(UserRole.ADMIN)
   getAllUsers(@Req() req: RequestWithUser) {
