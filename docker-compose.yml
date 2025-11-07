@@ -18,6 +18,7 @@ services:
       - CLOUDINARY_CLOUD_NAME=dyigjybua
       - CLOUDINARY_API_KEY=444512872377633
       - CLOUDINARY_API_SECRET=GUJJFmo_J90HUb7YtA1PxGroqko
+      - JWT_SECRET=123123123123123nasfajdfasdkjhasdfhjajsdhfakjdfhjasdfaksfhasdhfkjadshfj
 
   db:
     image: postgres:15
