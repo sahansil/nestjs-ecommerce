@@ -82,7 +82,7 @@ const { password, ...result } = savedUser;
     try {
       const user = await this.userRepository.findOne({
         where: { email: email },
-        select: ['id', 'email', 'password'],
+        select: ['id', 'email', 'password', 'role'],
       });
       if (!user) throw new UnauthorizedException('Invalid credentials');
 
@@ -92,6 +92,7 @@ const { password, ...result } = savedUser;
       const token = await this.jwtService.signAsync({
         id: user.id,
         email: user.email,
+        role: user.role,
       });
 
       // return both

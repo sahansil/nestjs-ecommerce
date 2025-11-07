@@ -22,9 +22,9 @@ export class RolesGuard implements CanActivate {
     const { user } = context.switchToHttp().getRequest();
 
     // 3. Check if the user has at least one of the required roles
-    return requiredRoles.some((role) => user.roles?.includes(role));
-    
-    // NOTE: This assumes your user object (attached by your Auth guard/strategy) 
-    // has a property named 'roles' that is an array of strings (e.g., ['admin', 'user']).
+    return requiredRoles.some((role) => user.role?.includes(role));
+
+    // NOTE: This assumes your user object (attached by your Auth guard/strategy)
+    // has a property named 'role' that is a string (e.g., 'admin').
   }
 }

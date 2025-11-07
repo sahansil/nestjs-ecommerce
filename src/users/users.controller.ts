@@ -32,6 +32,7 @@ export class UsersController {
   @ApiBearerAuth()
   @Get()
   @Auth(UserRole.ADMIN)
+  @UseGuards(AuthGuard, RolesGuard)
   getAllUsers(@Req() req: RequestWithUser) {
     const user = req.user;
     console.log(user);

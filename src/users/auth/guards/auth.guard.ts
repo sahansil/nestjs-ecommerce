@@ -7,9 +7,11 @@ import {
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
 import { UsersService } from '../../users.service';
+import { UserRole } from 'src/users/entities/user.entity';
 interface JwtPayload {
   id: string;
   email: string;
+  role: UserRole;
   iat?: number;
   exp?: number;
 }
@@ -28,7 +30,7 @@ export class AuthGuard implements CanActivate {
       throw new UnauthorizedException('No token provided');
     }
     try {
-      const payload = await this.jwtService.verifyAsync<JwtPayload>(token, {
+      const payload = this.jwtService.verify<JwtPayload>(token, {
         secret: process.env.JWT_SECRET || 'default_secret',
       });
       //  We're assigning the payload to the request object here
