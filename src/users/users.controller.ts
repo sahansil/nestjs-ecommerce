@@ -22,7 +22,7 @@ import { UserRole } from './entities/user.entity';
 import { Roles } from './decorators/roles.decorator';
 import { RolesGuard } from './auth/guards/roles.guard';
 import { Auth } from './decorators/auth.decoders';
-import { ApiBearerAuth } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiOperation } from '@nestjs/swagger';
 
 @Controller('users')
 export class UsersController {
@@ -55,6 +55,8 @@ export class UsersController {
 
   // Create admin user (force role ADMIN) - public for testing only, protect this in production
   @Post('/admin/register')
+  @ApiOperation({ summary: 'Register a new admin user'})
+  @ApiBody({ type: CreateUserDto })
   async createAdmin(@Body() createUserDto: CreateUserDto) {
     // Force role to ADMIN regardless of client-provided value
     const dto = { ...createUserDto, role: 'admin' } as CreateUserDto;
